@@ -2,11 +2,11 @@ package user_common
 
 import (
 	"ClassMoments-client-web/internal/entity"
-	"context"
 )
 
 type UserRepo interface {
-	AddUser(ctx context.Context, user *entity.User) error
+	AddUser(user *entity.User) error
+	GetUserByUsername(username string) (*entity.User, error)
 }
 
 type UserCommon struct {
