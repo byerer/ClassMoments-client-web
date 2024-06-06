@@ -30,6 +30,7 @@ func (uc *UserController) UserLogin(ctx *gin.Context) {
 		return
 	}
 	ctx.JSON(200, gin.H{
+		"code":    "200",
 		"message": "success",
 		"data":    resp,
 	})
@@ -46,5 +47,8 @@ func (uc *UserController) UserRegister(ctx *gin.Context) {
 		ctx.JSON(500, gin.H{"error": err.Error()})
 		return
 	}
-	ctx.JSON(200, gin.H{"message": "success"})
+	ctx.JSON(200, gin.H{
+		"code":    "200",
+		"message": "success",
+	})
 }
