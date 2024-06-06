@@ -1,6 +1,9 @@
 package router
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+	"net/http"
+)
 
 type StaticRouter struct {
 }
@@ -10,5 +13,5 @@ func NewStaticRouter() *StaticRouter {
 }
 
 func (st *StaticRouter) RegisterStaticRouter(r *gin.RouterGroup) {
-	r.Static("/uploads", "/uploads")
+	r.StaticFS("/uploads", http.Dir("uploads"))
 }
