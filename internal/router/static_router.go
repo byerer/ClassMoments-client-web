@@ -13,5 +13,6 @@ func NewStaticRouter() *StaticRouter {
 }
 
 func (st *StaticRouter) RegisterStaticRouter(r *gin.RouterGroup) {
+
 	r.StaticFS("/uploads", http.Dir("uploads"))
 }
