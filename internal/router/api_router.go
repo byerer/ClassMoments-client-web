@@ -9,17 +9,20 @@ type ClassMomentsAPIRouter struct {
 	userController   *controller.UserController
 	uploadController *controller.UploadController
 	likeController   *controller.LikeController
+	momentController *controller.MomentController
 }
 
 func NewClassMomentsAPIRouter(
 	userController *controller.UserController,
 	uploadController *controller.UploadController,
 	likeController *controller.LikeController,
+	momentController *controller.MomentController,
 ) *ClassMomentsAPIRouter {
 	return &ClassMomentsAPIRouter{
 		userController:   userController,
 		uploadController: uploadController,
 		likeController:   likeController,
+		momentController: momentController,
 	}
 }
 
@@ -30,6 +33,9 @@ func (c ClassMomentsAPIRouter) RegisterUnAuthAPIRouter(r *gin.RouterGroup) {
 
 	//upload
 	r.POST("/upload", c.uploadController.UploadFile)
+
+	//moment
+	r.POST("/moment", c.momentController.AddMoment)
 
 	//like
 	r.POST("/like", c.likeController.Like)
