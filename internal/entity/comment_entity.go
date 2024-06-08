@@ -1,10 +1,11 @@
 package entity
 
-import "gorm.io/gorm"
+import "time"
 
 type Comment struct {
-	gorm.Model
-	UserID   int
-	MomentID int
-	Content  string
+	CommentID uint `gorm:"primaryKey;autoIncrement"`
+	UserID    int
+	MomentID  int
+	Content   string
+	CreatedAt time.Time
 }

@@ -1,10 +1,11 @@
 package entity
 
-import "gorm.io/gorm"
+import "time"
 
 type Like struct {
-	gorm.Model
-	LikerID  uint
-	LikeeID  uint
-	MomentID uint
+	LikeID    uint `gorm:"primaryKey;autoIncrement"`
+	LikerID   uint
+	LikeeID   uint
+	MomentID  uint
+	CreatedAt time.Time
 }

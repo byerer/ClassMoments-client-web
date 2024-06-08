@@ -1,11 +1,14 @@
 package entity
 
-import "gorm.io/gorm"
+import (
+	"time"
+)
 
 type Moment struct {
-	gorm.Model
-	UserID  uint
-	Role    string
-	Content string
-	Image   []string
+	MomentID  uint
+	UserID    uint
+	Role      string
+	Content   string
+	Image     []string
+	CreatedAt time.Time
 }
