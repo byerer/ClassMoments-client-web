@@ -4,6 +4,7 @@ import (
 	"ClassMoments-client-web/internal/entity"
 	"ClassMoments-client-web/internal/schema"
 	usercommon "ClassMoments-client-web/internal/service/user_common"
+	"time"
 )
 
 type UserService struct {
@@ -40,8 +41,14 @@ func (us *UserService) UserLogin(req *schema.UserLoginReq) (*schema.UserLoginRes
 
 func (us *UserService) UserRegister(req *schema.UserRegisterReq) error {
 	user := &entity.User{
-		Username: req.Username,
-		Password: req.Password,
+		Name:      req.Name,
+		Username:  req.Username,
+		Password:  req.Password,
+		ClassID:   req.ClassID,
+		Role:      req.Role,
+		Sex:       req.Sex,
+		CreatedAt: time.Now(),
+		UpdatedAt: time.Now(),
 	}
 	return us.userRepo.AddUser(user)
 }
