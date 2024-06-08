@@ -18,4 +18,3 @@ docker run -d -p 3360:3306 --name ClassMoments -e MYSQL_ROOT_PASSWORD=123456 -e 
 
 ## todo 
 - token
-- gorm自增主键 question
