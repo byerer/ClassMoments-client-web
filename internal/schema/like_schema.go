@@ -1,10 +1,10 @@
 package schema
 
-import "gorm.io/gorm"
-
 type LikeReq struct {
-	gorm.Model
-	liker    uint
-	likee    uint
-	momentID uint
+	LikerID  uint `json:"liker_id"`
+	LikeeID  uint `json:"likee_id"`
+	MomentID uint `json:"moment_id"`
+}
+
+type LikeResp struct {
 }

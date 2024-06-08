@@ -16,6 +16,10 @@ type UserRegisterReq struct {
 
 type UserLoginResp struct {
 	Username string `json:"username"`
+	Name     string `json:"name"`
+	Sex      string
+	Role     string
+	ClassID  string
 }
 
 type UserRegisterResp struct {

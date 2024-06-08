@@ -31,6 +31,10 @@ func (us *UserService) UserLogin(req *schema.UserLoginReq) (*schema.UserLoginRes
 	}
 	return &schema.UserLoginResp{
 		Username: user.Username,
+		Name:     user.Name,
+		Sex:      user.Sex,
+		Role:     user.Role,
+		ClassID:  user.ClassID,
 	}, nil
 }
 

@@ -8,15 +8,18 @@ import (
 type ClassMomentsAPIRouter struct {
 	userController   *controller.UserController
 	uploadController *controller.UploadController
+	likeController   *controller.LikeController
 }
 
 func NewClassMomentsAPIRouter(
 	userController *controller.UserController,
 	uploadController *controller.UploadController,
+	likeController *controller.LikeController,
 ) *ClassMomentsAPIRouter {
 	return &ClassMomentsAPIRouter{
 		userController:   userController,
 		uploadController: uploadController,
+		likeController:   likeController,
 	}
 }
 
@@ -27,4 +30,8 @@ func (c ClassMomentsAPIRouter) RegisterUnAuthAPIRouter(r *gin.RouterGroup) {
 
 	//upload
 	r.POST("/upload", c.uploadController.UploadFile)
+
+	//like
+	r.POST("/like", c.likeController.Like)
+	r.DELETE("/like", c.likeController.UnLike)
 }
