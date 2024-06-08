@@ -4,6 +4,7 @@ import (
 	"ClassMoments-client-web/internal/entity"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"gorm.io/gorm/schema"
 )
 
 type Data struct {
@@ -22,9 +23,12 @@ func NewDB() (*gorm.DB, error) {
 	if err != nil {
 		return nil, err
 	}
+	schema.RegisterSerializer("json", schema.JSONSerializer{})
 	err = db.AutoMigrate(
 		&entity.User{},
 		&entity.Like{},
+		&entity.Comment{},
+		&entity.Moment{},
 	)
 	if err != nil {
 		return nil, err

@@ -33,7 +33,14 @@ func (ms *momentService) AddMoment(momentReq *schema.AddMomentReq) (*schema.AddM
 	if err != nil {
 		return nil, err
 	}
-	resp := &schema.AddMomentResp{}
+	resp := &schema.AddMomentResp{
+		MomentID:  moment.MomentID,
+		UserID:    moment.UserID,
+		Role:      moment.Role,
+		CreatTime: moment.CreatedAt.Format("2006-01-02 15:04:05"),
+		Content:   moment.Content,
+		Image:     moment.Image,
+	}
 	return resp, nil
 }
 

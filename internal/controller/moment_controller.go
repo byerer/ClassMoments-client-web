@@ -17,11 +17,10 @@ func NewMomentController(momentService moment.MomentService) *MomentController {
 // AddMoment add moment
 func (mc *MomentController) AddMoment(ctx *gin.Context) {
 	req := &schema.AddMomentReq{}
-	if err := ctx.ShouldBindJSON(req); err != nil {
+	if err := ctx.BindJSON(req); err != nil {
 		ctx.JSON(400, gin.H{"error": err.Error()})
 		return
 	}
-
 	resp, err := mc.momentService.AddMoment(req)
 	if err != nil {
 		ctx.JSON(500, gin.H{"error": err.Error()})

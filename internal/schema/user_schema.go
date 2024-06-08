@@ -24,4 +24,5 @@ type UserLoginResp struct {
 
 type UserRegisterResp struct {
 	Username string `json:"username"`
+	Name     string `json:"name"`
 }
