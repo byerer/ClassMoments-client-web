@@ -7,4 +7,5 @@ type LikeReq struct {
 }
 
 type LikeResp struct {
+	Liked bool `json:"liked"`
 }

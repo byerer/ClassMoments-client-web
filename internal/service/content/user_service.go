@@ -48,7 +48,6 @@ func (us *UserService) UserRegister(req *schema.UserRegisterReq) error {
 		Role:      req.Role,
 		Sex:       req.Sex,
 		CreatedAt: time.Now(),
-		UpdatedAt: time.Now(),
 	}
 	return us.userRepo.AddUser(user)
 }

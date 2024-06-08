@@ -3,6 +3,7 @@ package like
 import (
 	"ClassMoments-client-web/internal/entity"
 	"ClassMoments-client-web/internal/schema"
+	"time"
 )
 
 type LikeRepo interface {
@@ -23,17 +24,20 @@ func NewLikeService(likeRepo LikeRepo) LikeService {
 	return &likeService{LikeRepo: likeRepo}
 }
 
-func (ls *likeService) Like(req *schema.LikeReq) (*schema.LikeResp, error) {
+func (ls *likeService) Like(req *schema.LikeReq) (resp *schema.LikeResp, err error) {
 	like := &entity.Like{
-		LikerID:  req.LikerID,
-		LikeeID:  req.LikeeID,
-		MomentID: req.MomentID,
+		LikerID:   req.LikerID,
+		LikeeID:   req.LikeeID,
+		MomentID:  req.MomentID,
+		CreatedAt: time.Now(),
 	}
-	err := ls.LikeRepo.AddLike(like)
+	err = ls.LikeRepo.AddLike(like)
+	resp = &schema.LikeResp{}
 	if err != nil {
-		return nil, err
+		resp.Liked = false
+		return resp, err
 	}
-	resp := &schema.LikeResp{}
+	resp.Liked = true
 	return resp, nil
 }
 
