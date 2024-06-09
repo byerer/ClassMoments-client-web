@@ -7,4 +7,5 @@ var ProviderSetController = wire.NewSet(
 	NewUploadController,
 	NewLikeController,
 	NewMomentController,
+	NewCommentController,
 )

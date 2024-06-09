@@ -28,6 +28,7 @@ func (ur *userRepo) GetUserByUsername(username string) (*entity.User, error) {
 	var user entity.User
 	result := ur.data.DB.Where("username = ?", username).First(&user)
 	if result.Error != nil {
+
 		return nil, result.Error
 	}
 	return &user, nil

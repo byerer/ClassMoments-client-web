@@ -2,6 +2,7 @@ package repo
 
 import (
 	"ClassMoments-client-web/internal/base/data"
+	"ClassMoments-client-web/internal/repo/comment"
 	"ClassMoments-client-web/internal/repo/like"
 	"ClassMoments-client-web/internal/repo/moment"
 	"ClassMoments-client-web/internal/repo/user"
@@ -14,4 +15,5 @@ var ProviderSetRepo = wire.NewSet(
 	user.NewUserRepo,
 	like.NewLikeRepo,
 	moment.NewMomentRepo,
+	comment.NewCommentRepo,
 )

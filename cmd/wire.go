@@ -15,12 +15,12 @@ import (
 
 func InitApplication() (*Application, error) {
 	panic(wire.Build(
+		log.NewLogger,
+		repo.ProviderSetRepo,
 		server.ProviderSetServer,
 		router.ProviderSetRouter,
-		repo.ProviderSetRepo,
 		controller.ProviderSetController,
 		service.ProviderSetService,
-		log.NewLogger,
 		NewApplication,
 	))
 }

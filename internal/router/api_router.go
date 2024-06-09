@@ -6,10 +6,11 @@ import (
 )
 
 type ClassMomentsAPIRouter struct {
-	userController   *controller.UserController
-	uploadController *controller.UploadController
-	likeController   *controller.LikeController
-	momentController *controller.MomentController
+	userController    *controller.UserController
+	uploadController  *controller.UploadController
+	likeController    *controller.LikeController
+	momentController  *controller.MomentController
+	commentController *controller.CommentController
 }
 
 func NewClassMomentsAPIRouter(
@@ -17,12 +18,14 @@ func NewClassMomentsAPIRouter(
 	uploadController *controller.UploadController,
 	likeController *controller.LikeController,
 	momentController *controller.MomentController,
+	commentController *controller.CommentController,
 ) *ClassMomentsAPIRouter {
 	return &ClassMomentsAPIRouter{
-		userController:   userController,
-		uploadController: uploadController,
-		likeController:   likeController,
-		momentController: momentController,
+		userController:    userController,
+		uploadController:  uploadController,
+		likeController:    likeController,
+		momentController:  momentController,
+		commentController: commentController,
 	}
 }
 
@@ -40,4 +43,7 @@ func (c ClassMomentsAPIRouter) RegisterUnAuthAPIRouter(r *gin.RouterGroup) {
 	//like
 	r.POST("/like", c.likeController.Like)
 	r.DELETE("/like", c.likeController.UnLike)
+
+	//comment
+	r.POST("/comment/save", c.commentController.AddComment)
 }
