@@ -2,17 +2,20 @@ package schema
 
 // AddMomentReq add moment request
 type AddMomentReq struct {
-	UserID  uint     `json:"userID"`
-	Content string   `json:"content"`
-	Image   []string `json:"image"`
+	UserID  uint   `json:"userID"`
+	ClassID uint   `json:"classID"`
+	Content string `json:"content"`
+	Image   string `json:"image"`
+	//Image   []string `json:"image"`
 }
 
 // AddMomentResp add moment response
 type AddMomentResp struct {
-	MomentID  uint     `json:"moment_id"`
-	UserID    uint     `json:"user_id"`
-	Role      string   `json:"role"`
-	CreatTime string   `json:"create_time"`
-	Content   string   `json:"content"`
-	Image     []string `json:"image"`
+	MomentID  uint   `json:"momentID"`
+	UserID    uint   `json:"userID"`
+	Role      string `json:"role"`
+	CreatTime string `json:"create_time"`
+	Content   string `json:"content"`
+	Image     string `json:"image"`
+	//Image     []string `json:"image"`
 }

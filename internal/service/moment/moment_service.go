@@ -25,7 +25,6 @@ func NewMomentService(momentRepo MomentRepo) MomentService {
 func (ms *momentService) AddMoment(momentReq *schema.AddMomentReq) (*schema.AddMomentResp, error) {
 	moment := &entity.Moment{
 		UserID:  momentReq.UserID,
-		Role:    momentReq.Role,
 		Content: momentReq.Content,
 		Image:   momentReq.Image,
 	}
@@ -36,7 +35,6 @@ func (ms *momentService) AddMoment(momentReq *schema.AddMomentReq) (*schema.AddM
 	resp := &schema.AddMomentResp{
 		MomentID:  moment.MomentID,
 		UserID:    moment.UserID,
-		Role:      moment.Role,
 		CreatTime: moment.CreatedAt.Format("2006-01-02 15:04:05"),
 		Content:   moment.Content,
 		Image:     moment.Image,

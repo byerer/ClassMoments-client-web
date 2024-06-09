@@ -1,9 +1,11 @@
 package controller
 
 import (
+	"ClassMoments-client-web/internal/base/constant"
 	"ClassMoments-client-web/internal/schema"
 	"ClassMoments-client-web/internal/service/moment"
 	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
 type MomentController struct {
@@ -17,8 +19,8 @@ func NewMomentController(momentService moment.MomentService) *MomentController {
 // AddMoment add moment
 func (mc *MomentController) AddMoment(ctx *gin.Context) {
 	req := &schema.AddMomentReq{}
-	if err := ctx.BindJSON(req); err != nil {
-		ctx.JSON(400, gin.H{"error": err.Error()})
+	if err := ctx.ShouldBindJSON(req); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": constant.ErrorBindReqBody})
 		return
 	}
 	resp, err := mc.momentService.AddMoment(req)

@@ -31,11 +31,12 @@ func (us *UserService) UserLogin(req *schema.UserLoginReq) (*schema.UserLoginRes
 		return nil, nil
 	}
 	return &schema.UserLoginResp{
-		Username: user.Username,
-		Name:     user.Name,
+		UserID:   user.UserID,
 		Sex:      user.Sex,
 		Role:     user.Role,
 		ClassID:  user.ClassID,
+		Username: user.Username,
+		Name:     user.Name,
 	}, nil
 }
 
