@@ -4,6 +4,7 @@
 package cmd
 
 import (
+	"ClassMoments-client-web/internal/base/log"
 	"ClassMoments-client-web/internal/base/server"
 	"ClassMoments-client-web/internal/controller"
 	"ClassMoments-client-web/internal/repo"
@@ -19,6 +20,7 @@ func InitApplication() (*Application, error) {
 		repo.ProviderSetRepo,
 		controller.ProviderSetController,
 		service.ProviderSetService,
+		log.NewLogger,
 		NewApplication,
 	))
 }
