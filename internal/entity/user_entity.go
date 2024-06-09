@@ -4,12 +4,12 @@ import "time"
 
 type User struct {
 	UserID    uint `gorm:"primaryKey;autoIncrement"`
+	Role      uint
+	Sex       uint
+	ClassID   uint
 	Name      string
 	Username  string `gorm:"unique"`
 	Password  string
-	ClassID   string
-	Role      string
-	Sex       string
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }

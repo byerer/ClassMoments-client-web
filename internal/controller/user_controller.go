@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"ClassMoments-client-web/internal/base/constant"
 	"ClassMoments-client-web/internal/schema"
 	"ClassMoments-client-web/internal/service/content"
 	"github.com/gin-gonic/gin"
@@ -21,7 +22,7 @@ func NewUserController(
 func (uc *UserController) UserLogin(ctx *gin.Context) {
 	req := &schema.UserLoginReq{}
 	if err := ctx.ShouldBindJSON(req); err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": constant.ErrorBindReqBody})
 		return
 	}
 
@@ -40,7 +41,7 @@ func (uc *UserController) UserLogin(ctx *gin.Context) {
 func (uc *UserController) UserRegister(ctx *gin.Context) {
 	req := &schema.UserRegisterReq{}
 	if err := ctx.ShouldBindJSON(req); err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": constant.ErrorBindReqBody})
 		return
 	}
 	err := uc.userService.UserRegister(req)

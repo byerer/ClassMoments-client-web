@@ -3,7 +3,6 @@ package schema
 // AddMomentReq add moment request
 type AddMomentReq struct {
 	UserID  uint     `json:"userID"`
-	Role    string   `json:"role"`
 	Content string   `json:"content"`
 	Image   []string `json:"image"`
 }

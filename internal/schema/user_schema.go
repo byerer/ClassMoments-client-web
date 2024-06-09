@@ -5,21 +5,22 @@ type UserLoginReq struct {
 	Password string `json:"password"`
 }
 
-type UserRegisterReq struct {
-	Name     string `json:"name"`
+type UserLoginResp struct {
+	UserID   uint   `json:"userID"`
+	Sex      uint   `json:"sex"`
+	Role     uint   `json:"role"`
+	ClassID  uint   `json:"classID"`
 	Username string `json:"username"`
-	Password string `json:"password"`
-	ClassID  string `json:"class_id"`
-	Role     string `json:"role"`
-	Sex      string `json:"sex"`
+	Name     string `json:"name"`
 }
 
-type UserLoginResp struct {
-	Username string `json:"username"`
+type UserRegisterReq struct {
 	Name     string `json:"name"`
-	Sex      string
-	Role     string
-	ClassID  string
+	ClassID  uint   `json:"classID"`
+	Role     uint   `json:"role"`
+	Sex      uint   `json:"sex"`
+	Username string `json:"username"`
+	Password string `json:"password"`
 }
 
 type UserRegisterResp struct {

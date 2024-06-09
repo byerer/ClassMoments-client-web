@@ -4,8 +4,8 @@ import "time"
 
 type Comment struct {
 	CommentID uint `gorm:"primaryKey;autoIncrement"`
-	UserID    int
-	MomentID  int
+	UserID    uint
+	MomentID  uint
 	Content   string
 	CreatedAt time.Time
 }
