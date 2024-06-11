@@ -19,7 +19,6 @@ func NewMomentRepo(data *data.Data) moment.MomentRepo {
 // AddMoment add moment
 func (mr *momentRepo) AddMoment(moment *entity.Moment) error {
 	result := mr.data.DB.Create(moment)
-
 	if result.Error != nil {
 		return result.Error
 	}

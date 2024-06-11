@@ -29,6 +29,7 @@ func NewDB() (*gorm.DB, error) {
 		&entity.Like{},
 		&entity.Comment{},
 		&entity.Moment{},
+		&entity.Notification{},
 	)
 	if err != nil {
 		return nil, err
