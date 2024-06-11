@@ -1,0 +1,32 @@
+version: "3"
+services:
+  myapp:
+    build: .
+    ports:
+      - '8080:8080'
+    depends_on:
+      - mysql
+    networks:
+      - mynet
+    deploy:
+      restart_policy:
+        condition: on-failure
+
+  mysql:
+    image: mysql:latest
+    networks:
+      - mynet
+    ports:
+        - '3306:3306'
+    environment:
+      MYSQL_DATABASE: ClassMoments
+      MYSQL_ROOT_PASSWORD: 123456
+    volumes:
+        - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
+
+networks:
+  mynet:
+    driver: bridge
