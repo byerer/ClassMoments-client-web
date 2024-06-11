@@ -18,3 +18,9 @@ docker run -d -p 3360:3306 --name ClassMoments -e MYSQL_ROOT_PASSWORD=123456 -e 
 
 ## todo 
 - token
+
+## 触发器
+获取评论点赞数
+
+判断班级是否存在
+

@@ -27,3 +27,20 @@ func (cr *commentRepo) AddComment(comment *entity.Comment) error {
 	}
 	return nil
 }
+
+func (cr *commentRepo) DeleteComment(commentID uint) error {
+	result := cr.data.DB.Where("id = ?", commentID).Delete(&entity.Comment{})
+	if result.Error != nil {
+		return result.Error
+	}
+	return nil
+}
+
+func (cr *commentRepo) GetCommentList(momentID uint) ([]entity.Comment, error) {
+	var comments []entity.Comment
+	result := cr.data.DB.Where("moment_id = ?", momentID).Find(&comments)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	return comments, nil
+}

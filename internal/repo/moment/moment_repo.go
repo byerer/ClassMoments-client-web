@@ -34,3 +34,12 @@ func (mr *momentRepo) DeleteMoment(momentID uint) error {
 	}
 	return nil
 }
+
+func (mr *momentRepo) GetMomentList(classID uint) ([]entity.Moment, error) {
+	var moments []entity.Moment
+	result := mr.data.DB.Where("class_id = ?", classID).Find(&moments)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	return moments, nil
+}

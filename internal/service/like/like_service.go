@@ -9,6 +9,7 @@ import (
 type LikeRepo interface {
 	AddLike(like *entity.Like) error
 	DeleteLike(userID, momentID uint) error
+	GetLikeCount(momentID uint) (int, error)
 }
 
 type LikeService interface {

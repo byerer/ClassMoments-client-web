@@ -29,3 +29,12 @@ func (lr *likeRepo) DeleteLike(likerID, momentID uint) error {
 	}
 	return nil
 }
+
+func (lr *likeRepo) GetLikeCount(momentID uint) (int, error) {
+	var likes []entity.Like
+	result := lr.data.DB.Where("moment_id = ?", momentID).Find(&likes)
+	if result.Error != nil {
+		return 0, result.Error
+	}
+	return len(likes), nil
+}

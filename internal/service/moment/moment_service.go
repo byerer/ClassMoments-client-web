@@ -3,23 +3,36 @@ package moment
 import (
 	"ClassMoments-client-web/internal/entity"
 	"ClassMoments-client-web/internal/schema"
+	"ClassMoments-client-web/internal/service/comment"
+	"ClassMoments-client-web/internal/service/like"
 )
 
 type MomentRepo interface {
 	AddMoment(moment *entity.Moment) error
 	DeleteMoment(momentID uint) error
+	GetMomentList(classID uint) ([]entity.Moment, error)
 }
 
 type MomentService interface {
 	AddMoment(momentReq *schema.AddMomentReq) (*schema.AddMomentResp, error)
+	GetMomentList(classID uint) (*schema.GetMomentsResp, error)
 }
 
 type momentService struct {
-	momentRepo MomentRepo
+	momentRepo  MomentRepo
+	likeRepo    like.LikeRepo
+	commentRepo comment.CommentRepo
 }
 
-func NewMomentService(momentRepo MomentRepo) MomentService {
-	return &momentService{momentRepo: momentRepo}
+func NewMomentService(
+	momentRepo MomentRepo,
+	likeRepo like.LikeRepo,
+	commentRepo comment.CommentRepo,
+) MomentService {
+	return &momentService{
+		momentRepo:  momentRepo,
+		likeRepo:    likeRepo,
+		commentRepo: commentRepo}
 }
 
 func (ms *momentService) AddMoment(momentReq *schema.AddMomentReq) (*schema.AddMomentResp, error) {
@@ -35,6 +48,7 @@ func (ms *momentService) AddMoment(momentReq *schema.AddMomentReq) (*schema.AddM
 	resp := &schema.AddMomentResp{
 		MomentID:  moment.MomentID,
 		UserID:    moment.UserID,
+		Role:      moment.Role,
 		CreatTime: moment.CreatedAt.Format("2006-01-02 15:04:05"),
 		Content:   moment.Content,
 		Image:     moment.Image,
@@ -48,4 +62,32 @@ func (ms *momentService) DeleteMoment(momentID uint) error {
 		return err
 	}
 	return nil
+}
+
+func (ms *momentService) GetMomentList(classID uint) (*schema.GetMomentsResp, error) {
+	moments, err := ms.momentRepo.GetMomentList(classID)
+	if err != nil {
+		return nil, err
+	}
+	resp := &schema.GetMomentsResp{}
+	for _, moment := range moments {
+		momentResp := schema.Moment{
+			AddMomentResp: schema.AddMomentResp{
+				MomentID:  moment.MomentID,
+				UserID:    moment.UserID,
+				Role:      moment.Role,
+				CreatTime: moment.CreatedAt.Format("2006-01-02 15:04:05"),
+				Content:   moment.Content,
+				Image:     moment.Image,
+			},
+		}
+		momentResp.LikeCount, err = ms.likeRepo.GetLikeCount(moment.MomentID)
+		momentResp.CommentList, err = ms.commentRepo.GetCommentList(moment.MomentID)
+		if err != nil {
+			return nil, err
+		}
+		momentResp.CommentCount = len(momentResp.CommentList)
+		resp.MomentList = append(resp.MomentList, momentResp)
+	}
+	return resp, nil
 }

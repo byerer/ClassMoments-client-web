@@ -39,6 +39,7 @@ func (c ClassMomentsAPIRouter) RegisterUnAuthAPIRouter(r *gin.RouterGroup) {
 
 	//moment
 	r.POST("/moment", c.momentController.AddMoment)
+	r.GET("/moment", c.momentController.GetMomentList)
 
 	//like
 	r.POST("/like", c.likeController.Like)

@@ -7,6 +7,8 @@ import (
 type Moment struct {
 	MomentID uint `gorm:"primaryKey;autoIncrement"`
 	UserID   uint
+	ClassID  uint
+	Role     uint
 	Content  string
 	Image    string
 	//Image     []string `gorm:"type:text;serializer:json"`

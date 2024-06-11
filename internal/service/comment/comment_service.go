@@ -8,6 +8,7 @@ import (
 
 type CommentRepo interface {
 	AddComment(comment *entity.Comment) error
+	GetCommentList(momentID uint) (comments []entity.Comment, err error)
 }
 
 type CommentService interface {
