@@ -6,6 +6,7 @@ import (
 	"ClassMoments-client-web/internal/service/comment"
 	"ClassMoments-client-web/internal/service/like"
 	usercommon "ClassMoments-client-web/internal/service/user_common"
+	"fmt"
 )
 
 type MomentRepo interface {
@@ -107,6 +108,7 @@ func (ms *momentService) GetMomentList(classID uint) (*schema.MomentsResp, error
 		}
 		momentResp.CommentCount = len(momentResp.CommentList)
 		resp.MomentList = append(resp.MomentList, momentResp)
+		fmt.Println("momentResp:", momentResp)
 	}
 	return resp, nil
 }

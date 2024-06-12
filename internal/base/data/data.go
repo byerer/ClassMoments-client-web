@@ -1,6 +1,7 @@
 package data
 
 import (
+	"ClassMoments-client-web/internal/entity"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/schema"
@@ -24,18 +25,18 @@ func NewDB() (*gorm.DB, error) {
 		return nil, err
 	}
 	schema.RegisterSerializer("json", schema.JSONSerializer{})
-	//err = db.AutoMigrate(
-	//	&entity.User{},
-	//	&entity.Like{},
-	//	&entity.Comment{},
-	//	&entity.Moment{},
-	//	&entity.Notification{},
-	//	&entity.Class{},
-	//	&entity.School{},
-	//	&entity.Teacher{},
-	//	&entity.ParentRelChild{},
-	//	&entity.Media{},
-	//)
+	err = db.AutoMigrate(
+		&entity.User{},
+		&entity.Like{},
+		&entity.Comment{},
+		&entity.Moment{},
+		&entity.Notification{},
+		&entity.Class{},
+		&entity.School{},
+		&entity.Teacher{},
+		&entity.ParentRelChild{},
+		&entity.Media{},
+	)
 	if err != nil {
 		return nil, err
 	}
