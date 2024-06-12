@@ -11,11 +11,13 @@ type MomentRepo interface {
 	AddMoment(moment *entity.Moment) error
 	DeleteMoment(momentID uint) error
 	GetMomentList(classID uint) ([]entity.Moment, error)
+	GetMomentDetail(momentID uint) (*entity.Moment, error)
 }
 
 type MomentService interface {
 	AddMoment(momentReq *schema.AddMomentReq) (*schema.AddMomentResp, error)
 	GetMomentList(classID uint) (*schema.GetMomentsResp, error)
+	GetMomentDetail(momentID uint) (*schema.Moment, error)
 }
 
 type momentService struct {
@@ -89,5 +91,29 @@ func (ms *momentService) GetMomentList(classID uint) (*schema.GetMomentsResp, er
 		momentResp.CommentCount = len(momentResp.CommentList)
 		resp.MomentList = append(resp.MomentList, momentResp)
 	}
+	return resp, nil
+}
+
+func (ms *momentService) GetMomentDetail(momentID uint) (*schema.Moment, error) {
+	moment, err := ms.momentRepo.GetMomentDetail(momentID)
+	if err != nil {
+		return nil, err
+	}
+	resp := &schema.Moment{
+		AddMomentResp: schema.AddMomentResp{
+			MomentID:  moment.MomentID,
+			UserID:    moment.UserID,
+			Role:      moment.Role,
+			CreatTime: moment.CreatedAt.Format("2006-01-02 15:04:05"),
+			Content:   moment.Content,
+			Image:     moment.Image,
+		},
+	}
+	resp.LikeCount, err = ms.likeRepo.GetLikeCount(moment.MomentID)
+	resp.CommentList, err = ms.commentRepo.GetCommentList(moment.MomentID)
+	if err != nil {
+		return nil, err
+	}
+	resp.CommentCount = len(resp.CommentList)
 	return resp, nil
 }

@@ -4,6 +4,7 @@ import (
 	"ClassMoments-client-web/internal/base/constant"
 	"ClassMoments-client-web/internal/schema"
 	"ClassMoments-client-web/internal/service/moment"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 	"net/http"
@@ -44,7 +45,7 @@ func (mc *MomentController) AddMoment(ctx *gin.Context) {
 
 func (mc *MomentController) GetMomentList(ctx *gin.Context) {
 	req := &struct {
-		ClassID uint `json:"class_id"`
+		ClassID uint `form:"classID"`
 	}{}
 	if err := ctx.ShouldBindQuery(req); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": constant.ErrorBindReqBody})
@@ -57,6 +58,27 @@ func (mc *MomentController) GetMomentList(ctx *gin.Context) {
 		return
 	}
 	ctx.JSON(200, gin.H{
+		"code":    "200",
+		"message": "success",
+		"data":    resp,
+	})
+}
+
+func (mc *MomentController) GetMomentDetail(context *gin.Context) {
+	req := &struct {
+		MomentID uint `form:"momentID"`
+	}{}
+	if err := context.ShouldBindQuery(req); err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"error": constant.ErrorBindReqBody})
+		return
+	}
+	fmt.Println(req)
+	resp, err := mc.momentService.GetMomentDetail(req.MomentID)
+	if err != nil {
+		context.JSON(500, gin.H{"error": err.Error()})
+		return
+	}
+	context.JSON(200, gin.H{
 		"code":    "200",
 		"message": "success",
 		"data":    resp,

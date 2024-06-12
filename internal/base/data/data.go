@@ -18,7 +18,7 @@ func NewData(db *gorm.DB) *Data {
 }
 
 func NewDB() (*gorm.DB, error) {
-	dsn := "root:123456@tcp(mysql:3306)/ClassMoments?charset=utf8&parseTime=True&loc=Local"
+	dsn := "root:123456@tcp(127.0.0.1:3306)/ClassMoments?charset=utf8&parseTime=True&loc=Local"
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		return nil, err

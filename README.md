@@ -12,7 +12,7 @@ go run ./cmd/ClassMoments/main.go
 ```
 
 ```bash
-docker run -d -p 3360:3306 --name ClassMoments -e MYSQL_ROOT_PASSWORD=123456 -e MYSQL_DATABASE=ClassMoments mysql:latest
+docker run -d -p 3306:3306 --name ClassMoments -e MYSQL_ROOT_PASSWORD=123456 -e MYSQL_DATABASE=ClassMoments mysql:latest
 ```
 
 

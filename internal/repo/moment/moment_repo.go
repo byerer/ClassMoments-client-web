@@ -27,11 +27,20 @@ func (mr *momentRepo) AddMoment(moment *entity.Moment) error {
 
 // DeleteMoment delete moment
 func (mr *momentRepo) DeleteMoment(momentID uint) error {
-	result := mr.data.DB.Where("id = ?", momentID).Delete(&entity.Moment{})
+	result := mr.data.DB.Where("moment_id = ?", momentID).Delete(&entity.Moment{})
 	if result.Error != nil {
 		return result.Error
 	}
 	return nil
+}
+
+func (mr *momentRepo) GetMomentDetail(momentID uint) (*entity.Moment, error) {
+	var moment entity.Moment
+	result := mr.data.DB.Where("moment_id = ?", momentID).First(&moment)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	return &moment, nil
 }
 
 func (mr *momentRepo) GetMomentList(classID uint) ([]entity.Moment, error) {
