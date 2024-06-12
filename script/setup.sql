@@ -226,13 +226,6 @@ GROUP BY
 
 DELIMITER $$
 
-CREATE TRIGGER initCreateAt
-    BEFORE INSERT ON users
-    FOR EACH ROW
-BEGIN
-    SET NEW.role := 8889;
-END$$
-
 CREATE TRIGGER before_insert_moment_check_user_existence
     BEFORE INSERT ON moments
     FOR EACH ROW
@@ -244,6 +237,16 @@ BEGIN
 END IF;
 END$$
 
-
+-- 存储过程
+-- 插入新媒体
+CREATE PROCEDURE insert_media (
+    IN p_moment_id BIGINT UNSIGNED,
+    IN p_media_type LONGTEXT,
+    IN p_url LONGTEXT
+)
+BEGIN
+    INSERT INTO media (moment_id, media_type, url, created_at)
+    VALUES (p_moment_id, p_media_type, p_url, NOW(3));
+END$$
 
 DELIMITER ;

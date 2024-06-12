@@ -4,6 +4,7 @@ import (
 	"ClassMoments-client-web/internal/base/data"
 	"ClassMoments-client-web/internal/repo/comment"
 	"ClassMoments-client-web/internal/repo/like"
+	"ClassMoments-client-web/internal/repo/media"
 	"ClassMoments-client-web/internal/repo/moment"
 	"ClassMoments-client-web/internal/repo/notification"
 	"ClassMoments-client-web/internal/repo/user"
@@ -18,4 +19,5 @@ var ProviderSetRepo = wire.NewSet(
 	moment.NewMomentRepo,
 	comment.NewCommentRepo,
 	notification.NewNotificationRepo,
+	media.NewMediaRepo,
 )

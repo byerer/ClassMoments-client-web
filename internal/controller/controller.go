@@ -9,4 +9,5 @@ var ProviderSetController = wire.NewSet(
 	NewMomentController,
 	NewCommentController,
 	NewNotificationController,
+	NewMediaController,
 )

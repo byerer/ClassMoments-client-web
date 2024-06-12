@@ -4,6 +4,7 @@ import (
 	"ClassMoments-client-web/internal/service/comment"
 	"ClassMoments-client-web/internal/service/content"
 	"ClassMoments-client-web/internal/service/like"
+	"ClassMoments-client-web/internal/service/media"
 	"ClassMoments-client-web/internal/service/moment"
 	"ClassMoments-client-web/internal/service/notification"
 	"ClassMoments-client-web/internal/service/uploader"
@@ -19,4 +20,5 @@ var ProviderSetService = wire.NewSet(
 	moment.NewMomentService,
 	comment.NewCommentService,
 	notification.NewNotificationService,
+	media.NewMediaService,
 )

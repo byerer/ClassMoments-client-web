@@ -12,6 +12,7 @@ type ClassMomentsAPIRouter struct {
 	momentController       *controller.MomentController
 	commentController      *controller.CommentController
 	notificationController *controller.NotificationController
+	mediaController        *controller.MediaController
 }
 
 func NewClassMomentsAPIRouter(
@@ -21,6 +22,7 @@ func NewClassMomentsAPIRouter(
 	momentController *controller.MomentController,
 	commentController *controller.CommentController,
 	notificationController *controller.NotificationController,
+	mediaController *controller.MediaController,
 ) *ClassMomentsAPIRouter {
 	return &ClassMomentsAPIRouter{
 		userController:         userController,
@@ -29,6 +31,7 @@ func NewClassMomentsAPIRouter(
 		momentController:       momentController,
 		commentController:      commentController,
 		notificationController: notificationController,
+		mediaController:        mediaController,
 	}
 }
 
@@ -54,4 +57,7 @@ func (c ClassMomentsAPIRouter) RegisterUnAuthAPIRouter(r *gin.RouterGroup) {
 
 	//notification
 	r.POST("/notification", c.notificationController.AddNotification)
+
+	//media
+	r.POST("/media", c.mediaController.AddMedia)
 }
