@@ -15,9 +15,9 @@ type MomentRepo interface {
 }
 
 type MomentService interface {
-	AddMoment(momentReq *schema.AddMomentReq) (*schema.AddMomentResp, error)
-	GetMomentList(classID uint) (*schema.GetMomentsResp, error)
-	GetMomentDetail(momentID uint) (*schema.Moment, error)
+	AddMoment(momentReq *schema.AddMomentReq) (*schema.MomentBase, error)
+	GetMomentList(classID uint) (*schema.MomentsResp, error)
+	GetMomentDetail(momentID uint) (*schema.MomentResp, error)
 }
 
 type momentService struct {
@@ -37,9 +37,10 @@ func NewMomentService(
 		commentRepo: commentRepo}
 }
 
-func (ms *momentService) AddMoment(momentReq *schema.AddMomentReq) (*schema.AddMomentResp, error) {
+func (ms *momentService) AddMoment(momentReq *schema.AddMomentReq) (*schema.MomentBase, error) {
 	moment := &entity.Moment{
 		UserID:  momentReq.UserID,
+		ClassID: momentReq.ClassID,
 		Content: momentReq.Content,
 		Image:   momentReq.Image,
 	}
@@ -47,10 +48,9 @@ func (ms *momentService) AddMoment(momentReq *schema.AddMomentReq) (*schema.AddM
 	if err != nil {
 		return nil, err
 	}
-	resp := &schema.AddMomentResp{
+	resp := &schema.MomentBase{
 		MomentID:  moment.MomentID,
 		UserID:    moment.UserID,
-		Role:      moment.Role,
 		CreatTime: moment.CreatedAt.Format("2006-01-02 15:04:05"),
 		Content:   moment.Content,
 		Image:     moment.Image,
@@ -66,18 +66,20 @@ func (ms *momentService) DeleteMoment(momentID uint) error {
 	return nil
 }
 
-func (ms *momentService) GetMomentList(classID uint) (*schema.GetMomentsResp, error) {
+func (ms *momentService) GetMomentList(classID uint) (*schema.MomentsResp, error) {
 	moments, err := ms.momentRepo.GetMomentList(classID)
 	if err != nil {
 		return nil, err
 	}
-	resp := &schema.GetMomentsResp{}
+	resp := &schema.MomentsResp{}
 	for _, moment := range moments {
-		momentResp := schema.Moment{
-			AddMomentResp: schema.AddMomentResp{
+		momentResp := schema.MomentResp{
+			MomentBase: schema.MomentBase{
 				MomentID:  moment.MomentID,
 				UserID:    moment.UserID,
+				ClassID:   moment.ClassID,
 				Role:      moment.Role,
+				Title:     moment.Title,
 				CreatTime: moment.CreatedAt.Format("2006-01-02 15:04:05"),
 				Content:   moment.Content,
 				Image:     moment.Image,
@@ -94,16 +96,18 @@ func (ms *momentService) GetMomentList(classID uint) (*schema.GetMomentsResp, er
 	return resp, nil
 }
 
-func (ms *momentService) GetMomentDetail(momentID uint) (*schema.Moment, error) {
+func (ms *momentService) GetMomentDetail(momentID uint) (*schema.MomentResp, error) {
 	moment, err := ms.momentRepo.GetMomentDetail(momentID)
 	if err != nil {
 		return nil, err
 	}
-	resp := &schema.Moment{
-		AddMomentResp: schema.AddMomentResp{
+	resp := &schema.MomentResp{
+		MomentBase: schema.MomentBase{
 			MomentID:  moment.MomentID,
 			UserID:    moment.UserID,
+			ClassID:   moment.ClassID,
 			Role:      moment.Role,
+			Title:     moment.Title,
 			CreatTime: moment.CreatedAt.Format("2006-01-02 15:04:05"),
 			Content:   moment.Content,
 			Image:     moment.Image,

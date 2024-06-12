@@ -9,6 +9,7 @@ type Moment struct {
 	UserID   uint
 	ClassID  uint
 	Role     uint
+	Title    string
 	Content  string
 	Image    string
 	//Image     []string `gorm:"type:text;serializer:json"`

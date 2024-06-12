@@ -31,6 +31,7 @@ func (mc *MomentController) AddMoment(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": constant.ErrorBindReqBody})
 		return
 	}
+	mc.logger.Info("AddMoment", zap.Any("req", req))
 	resp, err := mc.momentService.AddMoment(req)
 	if err != nil {
 		ctx.JSON(500, gin.H{"error": err.Error()})
