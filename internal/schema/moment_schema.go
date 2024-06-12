@@ -18,8 +18,9 @@ type MomentBase struct {
 	UserID    uint   `json:"userID"`
 	Role      uint   `json:"role"`
 	ClassID   uint   `json:"classID"`
+	Username  string `json:"username"`
 	Title     string `json:"title"`
-	CreatTime string `json:"create_time"`
+	CreatTime string `json:"createTime"`
 	Content   string `json:"content"`
 	Image     string `json:"image"`
 	//Image     []string `json:"image"`

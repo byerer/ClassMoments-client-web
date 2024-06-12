@@ -33,3 +33,12 @@ func (ur *userRepo) GetUserByUsername(username string) (*entity.User, error) {
 	}
 	return &user, nil
 }
+
+func (ur *userRepo) GetUserByID(userID uint) (*entity.User, error) {
+	var user entity.User
+	result := ur.data.DB.Where("user_id = ?", userID).First(&user)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	return &user, nil
+}

@@ -8,10 +8,10 @@ ENV GOPROXY=https://goproxy.cn,direct
 # 将当前目录下的所有文件复制到工作目录
 COPY . .
 
-RUN go mod download
-RUN go install github.com/google/wire/cmd/wire@latest
-RUN wire ./cmd
-RUN CGO_ENABLED=0 GOOS=linux go build -o myapp ./cmd/ClassMoments
+RUN go mod download && \
+    go install github.com/google/wire/cmd/wire@latest && \
+    wire ./cmd && \
+    CGO_ENABLED=0 GOOS=linux go build -o myapp ./cmd/ClassMoments
 
 
 # 第二阶段：运行阶段

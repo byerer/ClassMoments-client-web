@@ -1,11 +1,12 @@
 package schema
 
 type LikeReq struct {
-	LikerID  uint `json:"liker_id"`
-	LikeeID  uint `json:"likee_id"`
-	MomentID uint `json:"moment_id"`
+	LikerID  uint `json:"likerID"`
+	LikeeID  uint `json:"likeeID"`
+	MomentID uint `json:"momentID"`
 }
 
 type LikeResp struct {
-	Liked bool `json:"liked"`
+	Liked     bool `json:"liked"`
+	LikeCount int  `json:"likeCount"`
 }

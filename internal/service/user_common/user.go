@@ -7,6 +7,7 @@ import (
 type UserRepo interface {
 	AddUser(user *entity.User) error
 	GetUserByUsername(username string) (*entity.User, error)
+	GetUserByID(userID uint) (*entity.User, error)
 }
 
 type UserCommon struct {

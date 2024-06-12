@@ -39,6 +39,10 @@ func (ls *likeService) Like(req *schema.LikeReq) (resp *schema.LikeResp, err err
 		return resp, err
 	}
 	resp.Liked = true
+	resp.LikeCount, err = ls.LikeRepo.GetLikeCount(req.MomentID)
+	if err != nil {
+		return nil, err
+	}
 	return resp, nil
 }
 
