@@ -24,3 +24,9 @@ docker run -d -p 3306:3306 --name ClassMoments -e MYSQL_ROOT_PASSWORD=123456 -e 
 
 判断班级是否存在
 
+
+- users
+- 触发器
+- 存储过程
+- 视图
+

@@ -38,7 +38,7 @@ func (lc *LikeController) Like(ctx *gin.Context) {
 		return
 	}
 	ctx.JSON(http.StatusOK, gin.H{
-		"msg":  "success",
+		"code": 200,
 		"data": resp,
 	})
 }

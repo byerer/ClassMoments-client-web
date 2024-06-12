@@ -5,6 +5,8 @@ import (
 	"ClassMoments-client-web/internal/schema"
 	"ClassMoments-client-web/internal/service/comment"
 	"ClassMoments-client-web/internal/service/like"
+	usercommon "ClassMoments-client-web/internal/service/user_common"
+	"fmt"
 )
 
 type MomentRepo interface {
@@ -24,17 +26,21 @@ type momentService struct {
 	momentRepo  MomentRepo
 	likeRepo    like.LikeRepo
 	commentRepo comment.CommentRepo
+	userRepo    usercommon.UserRepo
 }
 
 func NewMomentService(
 	momentRepo MomentRepo,
 	likeRepo like.LikeRepo,
 	commentRepo comment.CommentRepo,
+	userRepo usercommon.UserRepo,
 ) MomentService {
 	return &momentService{
 		momentRepo:  momentRepo,
 		likeRepo:    likeRepo,
-		commentRepo: commentRepo}
+		commentRepo: commentRepo,
+		userRepo:    userRepo,
+	}
 }
 
 func (ms *momentService) AddMoment(momentReq *schema.AddMomentReq) (*schema.MomentBase, error) {
@@ -55,6 +61,11 @@ func (ms *momentService) AddMoment(momentReq *schema.AddMomentReq) (*schema.Mome
 		Content:   moment.Content,
 		Image:     moment.Image,
 	}
+	user, err := ms.userRepo.GetUserByID(moment.UserID)
+	if err != nil {
+		return nil, err
+	}
+	resp.Username = user.Username
 	return resp, nil
 }
 
@@ -85,6 +96,11 @@ func (ms *momentService) GetMomentList(classID uint) (*schema.MomentsResp, error
 				Image:     moment.Image,
 			},
 		}
+		user, err := ms.userRepo.GetUserByID(moment.UserID)
+		if err != nil {
+			return nil, err
+		}
+		momentResp.Username = user.Username
 		momentResp.LikeCount, err = ms.likeRepo.GetLikeCount(moment.MomentID)
 		momentResp.CommentList, err = ms.commentRepo.GetCommentList(moment.MomentID)
 		if err != nil {
@@ -92,6 +108,7 @@ func (ms *momentService) GetMomentList(classID uint) (*schema.MomentsResp, error
 		}
 		momentResp.CommentCount = len(momentResp.CommentList)
 		resp.MomentList = append(resp.MomentList, momentResp)
+		fmt.Println("momentResp:", momentResp)
 	}
 	return resp, nil
 }
