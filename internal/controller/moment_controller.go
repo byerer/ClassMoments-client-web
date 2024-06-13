@@ -4,7 +4,6 @@ import (
 	"ClassMoments-client-web/internal/base/constant"
 	"ClassMoments-client-web/internal/schema"
 	"ClassMoments-client-web/internal/service/moment"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 	"net/http"
@@ -73,8 +72,10 @@ func (mc *MomentController) GetMomentDetail(context *gin.Context) {
 		context.JSON(http.StatusBadRequest, gin.H{"error": constant.ErrorBindReqBody})
 		return
 	}
-	fmt.Println(req)
 	resp, err := mc.momentService.GetMomentDetail(req.MomentID)
+	mc.logger.Info("GetMomentDetail", zap.Any("req", req))
+	mc.logger.Info("GetMomentDetail", zap.Any("resp", resp))
+	mc.logger.Info("GetMomentDetail", zap.Any("err", err))
 	if err != nil {
 		context.JSON(500, gin.H{"error": err.Error()})
 		return

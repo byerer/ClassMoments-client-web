@@ -119,6 +119,7 @@ func (ms *momentService) GetMomentDetail(momentID uint) (*schema.MomentResp, err
 	if err != nil {
 		return nil, err
 	}
+	fmt.Println("moment:", moment)
 	resp := &schema.MomentResp{
 		MomentBase: schema.MomentBase{
 			MomentID:  moment.MomentID,
@@ -131,12 +132,21 @@ func (ms *momentService) GetMomentDetail(momentID uint) (*schema.MomentResp, err
 			Image:     moment.Image,
 		},
 	}
-	resp.LikeCount, err = ms.likeRepo.GetLikeCount(moment.MomentID)
-	CommentListResp, err := ms.commentService.GetCommentList(moment.MomentID)
-	resp.CommentList = CommentListResp.Comments
+	user, err := ms.userRepo.GetUserByID(moment.UserID)
 	if err != nil {
 		return nil, err
 	}
+	resp.Username = user.Username
+	resp.LikeCount, err = ms.likeRepo.GetLikeCount(moment.MomentID)
+	if err != nil {
+		return nil, err
+	}
+	commentListResp := &schema.CommentListResp{}
+	commentListResp, err = ms.commentService.GetCommentList(moment.MomentID)
+	if err != nil {
+		return nil, err
+	}
+	resp.CommentList = commentListResp.Comments
 	resp.CommentCount = len(resp.CommentList)
 	return resp, nil
 }

@@ -54,6 +54,7 @@ func (cs *commentService) AddComment(comment *schema.CommentReq) (*schema.Commen
 
 func (cs *commentService) GetCommentList(momentID uint) (resp *schema.CommentListResp, err error) {
 	comments, err := cs.commentRepo.GetCommentList(momentID)
+	resp = &schema.CommentListResp{}
 	for _, comment := range comments {
 		commentBase := schema.CommentBase{
 			CommentID: comment.CommentID,
