@@ -23,23 +23,23 @@ type MomentService interface {
 }
 
 type momentService struct {
-	momentRepo  MomentRepo
-	likeRepo    like.LikeRepo
-	commentRepo comment.CommentRepo
-	userRepo    usercommon.UserRepo
+	momentRepo     MomentRepo
+	likeRepo       like.LikeRepo
+	userRepo       usercommon.UserRepo
+	commentService comment.CommentService
 }
 
 func NewMomentService(
 	momentRepo MomentRepo,
 	likeRepo like.LikeRepo,
-	commentRepo comment.CommentRepo,
 	userRepo usercommon.UserRepo,
+	commentService comment.CommentService,
 ) MomentService {
 	return &momentService{
-		momentRepo:  momentRepo,
-		likeRepo:    likeRepo,
-		commentRepo: commentRepo,
-		userRepo:    userRepo,
+		momentRepo:     momentRepo,
+		likeRepo:       likeRepo,
+		userRepo:       userRepo,
+		commentService: commentService,
 	}
 }
 
@@ -102,7 +102,8 @@ func (ms *momentService) GetMomentList(classID uint) (*schema.MomentsResp, error
 		}
 		momentResp.Username = user.Username
 		momentResp.LikeCount, err = ms.likeRepo.GetLikeCount(moment.MomentID)
-		momentResp.CommentList, err = ms.commentRepo.GetCommentList(moment.MomentID)
+		CommentListResp, err := ms.commentService.GetCommentList(moment.MomentID)
+		momentResp.CommentList = CommentListResp.Comments
 		if err != nil {
 			return nil, err
 		}
@@ -131,7 +132,8 @@ func (ms *momentService) GetMomentDetail(momentID uint) (*schema.MomentResp, err
 		},
 	}
 	resp.LikeCount, err = ms.likeRepo.GetLikeCount(moment.MomentID)
-	resp.CommentList, err = ms.commentRepo.GetCommentList(moment.MomentID)
+	CommentListResp, err := ms.commentService.GetCommentList(moment.MomentID)
+	resp.CommentList = CommentListResp.Comments
 	if err != nil {
 		return nil, err
 	}

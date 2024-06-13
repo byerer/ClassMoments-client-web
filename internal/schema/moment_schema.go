@@ -1,7 +1,5 @@
 package schema
 
-import "ClassMoments-client-web/internal/entity"
-
 // AddMomentReq add moment request
 type AddMomentReq struct {
 	UserID  uint   `json:"userID"`
@@ -32,9 +30,9 @@ type GetMomentsReq struct {
 
 type MomentResp struct {
 	MomentBase
-	LikeCount    int              `json:"likeCount"`
-	CommentCount int              `json:"commentCount"`
-	CommentList  []entity.Comment `json:"commentList"`
+	LikeCount    int           `json:"likeCount"`
+	CommentCount int           `json:"commentCount"`
+	CommentList  []CommentBase `json:"commentList"`
 }
 
 type MomentsResp struct {
