@@ -62,7 +62,11 @@ func (cs *commentService) GetCommentList(momentID uint) (resp *schema.CommentLis
 			Content:   comment.Content,
 			CreatedAt: comment.CreatedAt.Format("2006-01-02 15:04:05"),
 		}
-		user, _ := cs.userRepo.GetUserByID(comment.UserID)
+		user, err := cs.userRepo.GetUserByID(comment.UserID)
+		if err != nil {
+			cs.logger.Error("get user failed", zap.Error(err))
+			return nil, err
+		}
 		commentBase.Username = user.Username
 		resp.Comments = append(resp.Comments, commentBase)
 	}

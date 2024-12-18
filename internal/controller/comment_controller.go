@@ -1,10 +1,11 @@
 package controller
 
 import (
+	"net/http"
+
 	"ClassMoments-client-web/internal/schema"
 	"ClassMoments-client-web/internal/service/comment"
 	"github.com/gin-gonic/gin"
-	"net/http"
 )
 
 type CommentController struct {
@@ -29,5 +30,9 @@ func (cc *CommentController) AddComment(ctx *gin.Context) {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-	ctx.JSON(http.StatusOK, resp)
+	ctx.JSON(http.StatusOK, gin.H{
+		"code":    "200",
+		"message": "success",
+		"data":    resp,
+	})
 }
